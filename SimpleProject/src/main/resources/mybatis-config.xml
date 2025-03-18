@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- 
+		enviroments, dataSource => DB 연결 정보
+		
+		객체를 생성!!
+		
+		얘네는 서버와 통신하는 애라서 서버가 구동되는 동시에 스프링이 관리할 수 있게 빈 등록해줘야함
+		<environments default="">
+			<environment id="">
+				<dataSource type="">
+					<property name="" value=""/>
+				
+				</dataSource>
+			</environment>
+		</environments>
+	 -->
+	<!-- DataSource 객체의 필드 값이 있고 그 필드에 property가 필드의 세터 같은 느낌으로 값을 넣어준다. -->
+
+
+
+
+</configuration>  
