@@ -50,6 +50,7 @@ public class MemberServiceImpl implements MemberService {
 		 * 
 		 * retrun loginMember;
 		 */
+		validator.validatedLoginMember(member);
 		
 		// 1. Table에 아이디가 존재해야한다.
 		// 2. 비밀번호가 일치 해야한다.
@@ -60,7 +61,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 1. loginMember가 null 값과 동일하다면 아이디가 존재하지 않는다.
 		validator.validatedLoginMember(loginMember);
-
 		
 		// 2. 아이디만 가지고 조회를 하기 때문에
 		// 비밀번호를 검증 후 비밀번호가 유효하다면 회원의 정보를 session에 담기
