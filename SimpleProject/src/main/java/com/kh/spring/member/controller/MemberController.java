@@ -1,10 +1,14 @@
 package com.kh.spring.member.controller;
 
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.member.model.dto.MemberDTO;
 import com.kh.spring.member.model.service.MemberService;
@@ -14,11 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j  // lombok 기능 
 @Controller
-@RequiredArgsConstructor // 의존성 주입 생성자를 생성해주는 애노테이션(롬복에서 해주는 거임 Spring X)
+@RequiredArgsConstructor // 의존성 주입 생성자를 생성해주는 애노테이션(롬복에서 해주는 거임 생성자 만들어주는 거임)
 public class MemberController {
 	
 	/* 
-	 * @RequiredArgsConstructor 를 쓰면 final 이 붙은 Autowired 된 필드에 Constructor Injection 이 되게 해줌.
+	 * @RequiredArgsConstructor 를 쓰면 final 이 있는 필드에 Constructor Injection 이 되게 해줌.
 	 * @Autowired 안써도됨
 	 */
 	
@@ -78,9 +82,6 @@ public class MemberController {
 		member.setMemberId(id);
 		member.setMemberPw(pw);
 		
-		
-		
-		
 		return "main_page";
 	}
 	*/
@@ -132,7 +133,47 @@ public class MemberController {
 //			// 이런 문자열을 가지고 찾아가는 방식을 논리적인 경로를 가지고 물리적인 경로를 찾아간다고 한다.
 //			return "include/error_page";
 //		}
-//		
 //	}
+	
+	// 두 번째 방법 반환타입 ModelAndView로 돌아가기
+	@PostMapping("login")
+	public ModelAndView login(HttpSession session, MemberDTO member, ModelAndView mv) {
+		
+		MemberDTO loginMember = memberService.login(member);
+		
+		if (loginMember != null) {
+			session.setAttribute("loginMember", loginMember);
+			mv.setViewName("redirect:/");
+		} else {
+			mv.addObject("message", "로그인 실패").setViewName("include/error_page");
+		}
+		
+		return mv;
+	}
+	
+	@GetMapping("logout")
+	public ModelAndView logout(HttpSession session, ModelAndView mv) {
+		session.removeAttribute("loginMember");
+		mv.setViewName("redirect:/");
+		return mv;
+	}
+	
+	@GetMapping("signup-form")
+	public String signupForm() {
+		return "member/signup-form";
+	}
+	
+	/**
+	 * @param memberId, memberPw, memberName, email
+	 * 
+	 * @return 성공 시 웰컴페이지 실패 시 에러페이지
+	 */
+	@PostMapping("signup")
+	public String signup(MemberDTO member) {
+		memberService.signUp(member);
+		
+		return "main_page";
+	}
+	
 	
 }
