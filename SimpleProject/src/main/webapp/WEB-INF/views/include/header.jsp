@@ -71,7 +71,7 @@
                 
                 <!-- 로그인 후 -->
                 <!-- 
-                    <lable>홍길동님 환영합니다</label> &nbsp;&nbsp;
+                    <label>홍길동님 환영합니다</label> &nbsp;&nbsp;
                     <a href="">마이페이지</a>
                     <a href="">로그아웃</a>
                 -->
