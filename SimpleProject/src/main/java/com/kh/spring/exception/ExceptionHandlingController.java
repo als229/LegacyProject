@@ -20,7 +20,7 @@ public class ExceptionHandlingController {
 	
 	@ExceptionHandler(TooLargeValueException.class)
 	protected ModelAndView runTimeError(TooLargeValueException e) {
-		return createErrorResponse(e.getMessage(),e);
+		return createErrorResponse(e.getMessage(), e);
 	}
 	
 	@ExceptionHandler(InvalidParameterException.class)
@@ -37,6 +37,16 @@ public class ExceptionHandlingController {
 	
 	@ExceptionHandler(PasswordNotMatchException.class)
 	protected ModelAndView runTimeError(PasswordNotMatchException e) {
+		return createErrorResponse(e.getMessage(),e);
+	}
+	
+	@ExceptionHandler(DuplicateIdException.class)
+	protected ModelAndView runTimeError(DuplicateIdException e) {
+		return createErrorResponse(e.getMessage(),e);
+	}
+	
+	@ExceptionHandler(AuthenticationException.class)
+	protected ModelAndView runTimeError(AuthenticationException e) {
 		return createErrorResponse(e.getMessage(),e);
 	}
 	

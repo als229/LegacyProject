@@ -1,0 +1,33 @@
+package com.kh.spring.board.model.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.kh.spring.board.model.dto.BoardDTO;
+
+public interface BoardService {
+
+	// 게시글 작성(파일 첨부)
+	void insertBoard(BoardDTO board, MultipartFile file);
+	// 멀티 파트 방식 파일 전송 : 두가지 형태의 데이터를 전송 받는 방식 (파일형태 + 스트링)
+	
+	// 게시글 목록 조회
+	List<BoardDTO> selectBoardList(int currentPage);
+	
+	// 게시글 상세 보기(댓글도 같이 조회) => 새로운 멋잇는 기술이 뭘까요?
+	BoardDTO selectBoard(int boardNo);
+	
+	// 게시글 수정
+	BoardDTO updateBoard(BoardDTO board, MultipartFile file);
+	
+	// 게시글 삭제(사실 업데이트 기능임)
+	void deleteBoard(int boardNo);
+	
+	///////////// 1절 ////////////////// 
+	// 게시글 검색 기능
+	
+	// 댓글 작성
+	
+}

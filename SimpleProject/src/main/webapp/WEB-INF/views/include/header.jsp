@@ -66,26 +66,26 @@
             </div>
             <div id="header_1_center"></div>
             <div id="header_1_right">
-            	<c:choose>
-            		<c:when test="${ empty sessionScope.loginMember }">
+             	<c:choose>
+            		<c:when test="${ empty sessionScope.loginMember }"> 
 		                <!-- 로그인 전 -->
 		                <a href="signup-form">회원가입</a>
 		                <a data-toggle="modal" data-target="#loginModal">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-targer에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
-            		</c:when>
-	                <c:otherwise>
+             		</c:when>
+	                <c:otherwise> 
 		                <!-- 로그인 후 -->
 		                <label>홍길동님 환영합니다</label> &nbsp;&nbsp;
-		                <a href="">마이페이지</a>
+		                <a href="my-page">마이페이지</a>
 		                <a href="logout">로그아웃</a>
-	                </c:otherwise>
-            	</c:choose>
+          			</c:otherwise>
+            	</c:choose> 
             </div>
         </div>
         <div id="header_2">
             <ul>
                 <li><a href="">HOME</a></li>
                 <li><a href="">공지사항</a></li>
-                <li><a href="">자유게시판</a></li>
+                <li><a href="boards">자유게시판</a></li>
                 <li><a href="">사진게시판</a></li>
             </ul>
         </div>
