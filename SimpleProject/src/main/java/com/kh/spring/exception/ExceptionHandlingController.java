@@ -50,4 +50,9 @@ public class ExceptionHandlingController {
 		return createErrorResponse(e.getMessage(),e);
 	}
 	
+	@ExceptionHandler(MemberInsertFailException.class)
+	protected ModelAndView runTimeError(MemberInsertFailException e) {
+		return createErrorResponse(e.getMessage(),e);
+	}
+	
 }

@@ -1,20 +1,22 @@
 package com.kh.spring.board.model.service;
 
-import java.util.List;
+import java.util.Map;
 
-import org.springframework.stereotype.Service;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.spring.board.model.dto.BoardDTO;
+import com.kh.spring.reply.model.dto.ReplyDTO;
 
 public interface BoardService {
 
 	// 게시글 작성(파일 첨부)
-	void insertBoard(BoardDTO board, MultipartFile file);
+	void insertBoard(BoardDTO board, MultipartFile file, HttpSession session);
 	// 멀티 파트 방식 파일 전송 : 두가지 형태의 데이터를 전송 받는 방식 (파일형태 + 스트링)
 	
 	// 게시글 목록 조회
-	List<BoardDTO> selectBoardList(int currentPage);
+	Map<String, Object> selectBoardList(int currentPage);
 	
 	// 게시글 상세 보기(댓글도 같이 조회) => 새로운 멋잇는 기술이 뭘까요?
 	BoardDTO selectBoard(int boardNo);

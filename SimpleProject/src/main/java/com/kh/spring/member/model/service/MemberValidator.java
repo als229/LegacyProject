@@ -28,7 +28,7 @@ public class MemberValidator {
 	}
 	
 	// 로그인 전 입력값 비었는지 확이
-	private void validtedValue(MemberDTO member) {
+	public void validtedValue(MemberDTO member) {
 		if(member == null || 
 			member.getMemberId() == null || 
 			member.getMemberId().trim().isEmpty()|| 
@@ -51,7 +51,7 @@ public class MemberValidator {
 	}
 	
 	// 비밀번호 일치하는지 확인 후 없으면 에러 있으면 멤버 객체 반환
-	private MemberDTO validateMemberPwMatch(MemberDTO member) {
+	public MemberDTO validateMemberPwMatch(MemberDTO member) {
 		MemberDTO loginMember = validateMemberExists(member);	// select 해서 같은 아이디 존재하는지 확인
 		if(!passwordEncoder.matches(member.getMemberPw(), loginMember.getMemberPw())) {
 			throw new PasswordNotMatchException("비밀번호 일치하지 않슴다");

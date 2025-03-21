@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- @Mapper 붙여서 인터페이스로 사용할려면 이렇게 경로로 적어줘야함. -->
+<mapper namespace="com.kh.spring.board.model.mapper.BoardMapper">
+
+	<sql id="boardColumn">
+			SELECT 
+			  BOARD_NO boardNo
+			, BOARD_TITLE boardTitle
+			, BOARD_WRITER boardWriter
+			, COUNT
+			, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS createDate
+			, CHANGE_NAME changeName
+	</sql>
+	
+	<resultMap id="boardResultSet" 
+			   type="BoardDTO"
+	>
+		<!-- pk 값에 id 로 해줌. 근데 result 로 해도 사실 관계 없음 -->
+		<!-- 밑에 boardNo : 셀렉문에 boardNo / 여기 boardNo: DTO 어떤 필드에 담을거냐 -->
+		<id column="boardNo" property="boardNo" />	
+		<result column="boardTitle" property="boardTitle" />		
+		<result column="boardContent" property="boardContent" />		
+		<result column="baordWriter" property="baordWriter" />	
+		<result column="boardCreateDate" property="createDate" />		
+		<result column="changeName" property="changeName" />		
+		<collection property="replyList" ofType="ReplyDTO">
+			<id column="replyNo" property="replyNo" />	
+			<result column="replyWriter" property="replyWriter" />		
+			<result column="replyContent" property="replyContent" />		
+			<result column="refBoardNo" property="refBoardNo" />		
+			<result column="replyCreateDate" property="createDate" />		
+		</collection>
+	</resultMap>
+	<!-- 1대 N 관계에선 collection -->
+	<!-- 1대 1 관계에선 association -->
+	<insert id="insertBoard"
+			parameterType="BoardDTO"
+	>
+		INSERT
+			INTO
+				TB_SPRING_BOARD
+				(
+					  BOARD_TITLE
+					, BOARD_CONTENT
+					, BOARD_WRITER
+					, CHANGE_NAME
+				)
+			VALUES
+				(
+					  #{boardTitle}
+					, #{boardContent}
+					, #{boardWriter}
+					, #{changeName}
+				)
+	</insert>
+	
+	<select id="selectBoardList"
+			resultType="BoardDTO"
+	>
+		<include refid="boardColumn" />
+		FROM 
+			TB_SPRING_BOARD
+		WHERE 
+			STATUS = 'Y'
+		ORDER
+		   BY
+			CREATE_DATE DESC
+	</select>
+	
+	<!-- 1절 -->
+	<select id="selectBoard"
+			parameterType="_int"
+			resultType="BoardDTO"
+	>
+		<include refid="boardColumn" />
+		, BOARD_CONTENT boardContent
+		FROM
+			TB_SPRING_BOARD
+		WHERE 
+				STATUS = 'Y'
+			AND
+				BOARD_NO = #{boardNo}
+	</select>
+	
+	<!-- 2절 -->
+	
+	<select id="selectReply"
+			parameterType="_int"
+			resultType="ReplyDTO"
+	>
+		SELECT
+			  REPLY_NO replyNo
+			, REPLY_WRITER replyWriter
+			, REPLY_CONTENT replyContent
+			, CREATE_DATE createDate
+			, REF_BOARD_NO refBoardNo
+		FROM
+			TB_REPLY
+		WHERE
+			REF_BOARD_NO = #{boardNo}
+		ORDER
+		   BY
+		   	REPLY_NO DESC
+	</select>
+	
+	<select id="selectBoardAndReply"
+			parameterType="_int"
+			resultMap="boardResultSet"
+	>
+		SELECT 
+			  BOARD_NO boardNo
+			, BOARD_TITLE boardTitle
+			, BOARD_WRITER boardWriter
+			, COUNT
+			, TO_CHAR(TB_SPRING_BOARD.CREATE_DATE, 'YYYY-MM-DD') AS boardCreateDate
+			, CHANGE_NAME changeName
+			, REPLY_NO replyNo
+			, REPLY_WRITER replyWriter
+			, REPLY_CONTENT replyContent
+			, REF_BOARD_NO refBoardNo
+			, TB_REPLY.CREATE_DATE replyCreateDate
+		FROM
+			TB_SPRING_BOARD 
+		LEFT 
+		JOIN 
+			TB_REPLY ON (BOARD_NO = REF_BOARD_NO)
+		WHERE 
+			BOARD_NO = #{boardNo}
+	</select>
+
+</mapper>  

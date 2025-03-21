@@ -19,14 +19,22 @@
 			</environment>
 		</environments>
 	 -->
+	 
 	<!-- DataSource 객체의 필드 값이 있고 그 필드에 property가 필드의 세터 같은 느낌으로 값을 넣어준다. -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
 	
 	<typeAliases>
 		<typeAlias type="com.kh.spring.member.model.dto.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="com.kh.spring.board.model.dto.BoardDTO" alias="BoardDTO"/>
+		<typeAlias type="com.kh.spring.reply.model.dto.ReplyDTO" alias="ReplyDTO"/>
 	</typeAliases>
+	
 	
 	<mappers>
 		<mapper resource="/mapper/member-mapper.xml"/>
+		<mapper resource="/mapper/board-mapper.xml"/>
 	</mappers>
 
 

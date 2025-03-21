@@ -1,8 +1,5 @@
 package com.kh.spring.member.controller;
 
-import java.io.UnsupportedEncodingException;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.spring.exception.MemberInsertFailException;
 import com.kh.spring.member.model.dto.MemberDTO;
 import com.kh.spring.member.model.service.MemberService;
 
@@ -220,6 +218,21 @@ public class MemberController {
 		memberService.update(member, session);
 		
 		return "redirect:my-page";
+	}
+	
+	@PostMapping("deleteMember")
+	public String deleteMember(MemberDTO member, HttpSession session) {
+		
+		member.setMemberId(((MemberDTO)session.getAttribute("loginMember")).getMemberId());
+		int result = memberService.delete(member);
+		
+		if(result > 0) {
+			session.setAttribute("message", "삭제 성공~~~~");
+		}else {
+			new MemberInsertFailException("회원 삭제에 실패했어유");
+		}
+		
+		return "redirect:logout";
 	}
 	
 	

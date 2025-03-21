@@ -140,7 +140,16 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int delete(MemberDTO member) {
-		return 0;
+		
+		// 비밀번호 입력안하고 넘겼는지 체크
+		validator.validtedValue(member);
+		
+		// 비밀번호 체크
+		validator.validateMemberPwMatch(member);
+		
+		int result = memberMapper.delete(member);
+		
+		return result;  
 	}
 
 }

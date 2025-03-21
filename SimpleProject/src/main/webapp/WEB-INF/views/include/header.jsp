@@ -58,7 +58,13 @@
     </style>
 </head>
 <body>
-
+	
+	<c:if test="${ not empty sessionScope.message }">
+		<script>
+			alert('${ sessionScope.message }');
+		</script>
+		<c:remove var="message" scope="session" />
+	</c:if>
     <div id="header">
         <div id="header_1">
             <div id="header_1_left">
@@ -74,7 +80,7 @@
              		</c:when>
 	                <c:otherwise> 
 		                <!-- 로그인 후 -->
-		                <label>홍길동님 환영합니다</label> &nbsp;&nbsp;
+		                <label>${ sessionScope.loginMember.memberName } 님 환영합니다</label> &nbsp;&nbsp;
 		                <a href="my-page">마이페이지</a>
 		                <a href="logout">로그아웃</a>
           			</c:otherwise>
