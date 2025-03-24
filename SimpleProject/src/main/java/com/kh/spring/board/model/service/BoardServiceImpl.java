@@ -21,7 +21,6 @@ import com.kh.spring.board.model.mapper.BoardMapper;
 import com.kh.spring.exception.AuthenticationException;
 import com.kh.spring.exception.InvalidParameterException;
 import com.kh.spring.member.model.dto.MemberDTO;
-import com.kh.spring.reply.model.dto.ReplyDTO;
 import com.kh.spring.util.model.dto.PageInfo;
 import com.kh.spring.util.template.Pagination;
 
@@ -148,6 +147,32 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void deleteBoard(int boardNo) {
+		
+	}
+
+	@Override
+	public Map<String, Object> doSearch(Map<String, Object> map) {
+		
+		// 유효성 검사는 했다 치겠다.
+		
+		int searchedCount = boardMapper.searchedCount(map);
+		
+//		log.info("잘 나오닝? {}" , searchedCount);
+		
+		PageInfo pi = Pagination.getPageInfo(searchedCount
+											,Integer.parseInt(map.get("currentPage"))
+											, 3
+											, 3);
+		
+		RowBounds rb = new RowBounds((pi.getCurrentPage() - 1) * 3, 3);
+		
+		List<BoardDTO> boards = boardMapper.selectSearchList(map, rb);
+		
+		Map<String, Object> returnValue = new HashMap();
+		returnValue.put("boards", boards);
+		returnValue.put("pageInfo", pi);
+		
+		return map;
 		
 	}
 

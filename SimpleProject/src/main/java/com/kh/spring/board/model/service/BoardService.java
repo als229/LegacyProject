@@ -26,6 +26,8 @@ public interface BoardService {
 	
 	// 게시글 삭제(사실 업데이트 기능임)
 	void deleteBoard(int boardNo);
+
+	Map<String, Object> doSearch(Map<String, Object> map);
 	
 	///////////// 1절 ////////////////// 
 	// 게시글 검색 기능
