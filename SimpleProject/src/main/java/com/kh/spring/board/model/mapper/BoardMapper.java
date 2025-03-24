@@ -34,9 +34,9 @@ public interface BoardMapper {
 	List<BoardDTO> doSearch(RowBounds rowBounds, Map<String , Object> map);
 
 	// 2절.... 
-	int searchedCount(Map<String, Object> map);
+	int searchedCount(Map<String, String> map);
 
-	List<BoardDTO> selectSearchList(Map<String, Object> map, RowBounds rb);
+	List<BoardDTO> selectSearchList(Map<String, String> map, RowBounds rb);
 	
 	
 	

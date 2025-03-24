@@ -114,14 +114,16 @@ public class BoardController {
 								ModelAndView mv
 			) {
 		
-		Map<String , Object> map = new HashMap();
+		Map<String , String> map = new HashMap();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
 		map.put("currentPage", String.valueOf(page));
 		
-		boardService.doSearch(map);
-		
 		Map<String, Object> list = boardService.doSearch(map);
+		
+		list.put("condition", condition);
+		list.put("keyword", keyword);
+		
 		mv.addObject("map", list).setViewName("board/board_list");
 		
 		return mv;

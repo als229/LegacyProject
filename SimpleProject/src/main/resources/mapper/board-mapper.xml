@@ -115,6 +115,7 @@
 			  BOARD_NO boardNo
 			, BOARD_TITLE boardTitle
 			, BOARD_WRITER boardWriter
+			, BOARD_CONTENT boardContent
 			, COUNT
 			, TO_CHAR(TB_SPRING_BOARD.CREATE_DATE, 'YYYY-MM-DD') AS boardCreateDate
 			, CHANGE_NAME changeName

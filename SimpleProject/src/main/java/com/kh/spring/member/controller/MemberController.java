@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.exception.MemberInsertFailException;
@@ -233,6 +235,15 @@ public class MemberController {
 		}
 		
 		return "redirect:logout";
+	}
+	
+	@ResponseBody
+	@GetMapping("id-check")
+	public String idCheck(@RequestParam(name="memberId") String memberId) {
+		
+		memberService.idCheck(memberId);
+		
+		return memberService.idCheck(memberId);
 	}
 	
 	
