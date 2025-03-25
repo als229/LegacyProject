@@ -28,6 +28,8 @@ public interface BoardService {
 	void deleteBoard(int boardNo);
 
 	Map<String, Object> doSearch(Map<String, String> map);
+
+	int insertReply(ReplyDTO reply, HttpSession session);
 	
 	///////////// 1절 ////////////////// 
 	// 게시글 검색 기능

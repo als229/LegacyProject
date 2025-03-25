@@ -37,6 +37,8 @@ public interface BoardMapper {
 	int searchedCount(Map<String, String> map);
 
 	List<BoardDTO> selectSearchList(Map<String, String> map, RowBounds rb);
+
+	int insertReply(ReplyDTO reply);
 	
 	
 	
