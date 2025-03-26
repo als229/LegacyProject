@@ -14,10 +14,11 @@ import lombok.Data;
 @Data
 public class MemberDTO {
 	
+	private long memberNo;
 	private String memberId;
 	private String memberPw;
 	private String memberName;
 	private String email;
-	private Date   enrollDate;
+	private Date enrollDate;
 	
 }
